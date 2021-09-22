@@ -170,8 +170,11 @@ async function handleImage() {
 						smileDetected: true,
 						stillDetected: true,
 						message: "All Done",
-						lifeProofDetected: true,
 					});
+
+					setTimeout(() => {
+						setDetections({ ...detections, lifeProofDetected: true });
+					}, 500);
 				}
 				expCount += 1;
 				delayCapture(1500);

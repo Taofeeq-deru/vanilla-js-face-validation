@@ -50,3 +50,9 @@ canvas {
 	border-radius: 5px;
 	border: 0;
 }
+
+@media screen and (max-width: 560px) {
+	#message {
+		margin-bottom: 0;
+	}
+}
