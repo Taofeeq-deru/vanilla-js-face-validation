@@ -174,7 +174,7 @@ async function handleImage() {
 
 					setTimeout(() => {
 						setDetections({ ...detections, lifeProofDetected: true });
-					}, 500);
+					}, 800);
 				}
 				expCount += 1;
 				delayCapture(1500);
