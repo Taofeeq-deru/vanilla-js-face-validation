@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script defer src="face-api.min.js"></script>
+		<script defer src="script.js"></script>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="video-container">
+			<h3 id="title">Take Picture</h3>
+			<p id="message">Smile for the camera</p>
+			<div id="inner-container">
+				<video id="video" width="320" height="420" autoplay muted></video>
+				<div id="emotions">
+					<span style="display: none" id="smile">
+						<strong>Smile</strong>
+						<img width="20" alt="Smile detected" src="images/ticked.gif" />
+					</span>
+					<span style="display: none" id="still">
+						<strong>Still</strong>
+						<img width="20" alt="Still detected" src="images/ticked.gif" />
+					</span>
+				</div>
+			</div>
+			<canvas id="canvas"></canvas>
+
+			<img width="320" height="420" id="result" src="" style="display: none" />
+			<button id="button" style="display: none">Take Another</button>
+		</div>
+	</body>
+</html>

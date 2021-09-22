@@ -1,0 +1,52 @@
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+canvas {
+	position: absolute;
+}
+
+#canvas {
+	display: none;
+}
+
+#message {
+	margin-bottom: -80px;
+}
+
+#inner-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+#inner-container video {
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+#emotions {
+	display: flex;
+	flex-flow: column wrap;
+}
+
+#emotions span {
+	margin: 5px;
+}
+
+#button {
+	width: 100%;
+	background-color: rgba(18, 88, 218, 0.953);
+	color: #fff;
+	height: 40px;
+	margin-top: 8px;
+	border-radius: 5px;
+	border: 0;
+}
