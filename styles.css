@@ -16,8 +16,20 @@ canvas {
 	display: none;
 }
 
+#title {
+	margin-bottom: 0;
+	text-align: center;
+}
+
 #message {
 	margin-bottom: -80px;
+	text-align: center;
+}
+
+#video-container {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
 }
 
 #inner-container {
@@ -49,4 +61,10 @@ canvas {
 	margin-top: 8px;
 	border-radius: 5px;
 	border: 0;
+}
+
+@media screen and (max-width: 560px) {
+	#message {
+		margin-bottom: 0;
+	}
 }
