@@ -16,14 +16,20 @@ canvas {
 	display: none;
 }
 
+#title {
+	margin-bottom: 0;
+	text-align: center;
+}
+
 #message {
 	margin-bottom: -80px;
+	text-align: center;
 }
 
 #video-container {
 	display: flex;
 	flex-flow: column nowrap;
-	align-items: flex-start;
+	align-items: center;
 }
 
 #inner-container {
