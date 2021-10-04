@@ -23,7 +23,11 @@ function loadModels() {
 	return Promise.all([
 		faceapi.nets.tinyFaceDetector.loadFromUri("./models"),
 		faceapi.nets.faceExpressionNet.loadFromUri("./models"),
-	]).then(startVideo);
+	])
+		.then(startVideo)
+		.catch(
+			(err) => (message.innerHTML = "Something went wrong, please try again")
+		);
 }
 
 function startVideo() {
