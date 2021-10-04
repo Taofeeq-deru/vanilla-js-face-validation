@@ -26,15 +26,23 @@ canvas {
 	text-align: center;
 }
 
+#container {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
+
 #video-container {
 	display: flex;
-	flex-flow: column nowrap;
+	flex-flow: row wrap;
 	align-items: center;
+	justify-content: center;
 }
 
 #inner-container {
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
 }
@@ -44,17 +52,19 @@ canvas {
 	margin-bottom: 5px;
 }
 
-#emotions {
+#emotions,
+#emotions-mobile {
 	display: flex;
 	flex-flow: column wrap;
 }
 
-#emotions span {
+#emotions span,
+#emotions-mobile span {
 	margin: 5px;
 }
 
 #button {
-	width: 100%;
+	width: 320px;
 	background-color: rgba(18, 88, 218, 0.953);
 	color: #fff;
 	height: 40px;
