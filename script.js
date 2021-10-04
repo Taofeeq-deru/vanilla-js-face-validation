@@ -2,6 +2,7 @@ const video = document.getElementById("video");
 const button = document.getElementById("button");
 const title = document.getElementById("title");
 const container = document.getElementById("inner-container");
+const emotions = document.getElementById("emotions");
 const picCanvas = document.getElementById("canvas");
 const message = document.getElementById("message");
 const smile = document.getElementById("smile");
@@ -28,24 +29,17 @@ function loadModels() {
 function startVideo() {
 	navigator.getUserMedia(
 		{ video: {} },
-		(stream) => (video.srcObject = stream),
+		(stream) => {
+			window.localStream = stream;
+			video.srcObject = stream;
+		},
 		(err) => setDetections({ ...detections, message: err })
 	);
 }
 
 function stopVideo() {
-	console.log("stop called");
-	navigator.getUserMedia(
-		{ video: {} },
-		(stream) => {
-			stream.getTracks().forEach(function (track) {
-				if (track.readyState == "live") {
-					track.stop();
-				}
-			});
-		},
-		(err) => console.log(err)
-	);
+	localStream.getVideoTracks()[0].stop();
+	video.src = "";
 }
 
 function setDetections(obj) {
@@ -59,6 +53,7 @@ function setDetections(obj) {
 		: "Take picture";
 	message.style.display = detections?.lifeProofDetected ? "none" : "flex";
 	container.style.display = detections?.lifeProofDetected ? "none" : "flex";
+	emotions.style.display = detections?.lifeProofDetected ? "none" : "flex";
 	result.style.display = detections?.lifeProofDetected ? "flex" : "none";
 	button.style.display = detections?.lifeProofDetected ? "block" : "none";
 	result.setAttribute("src", imageD);
@@ -155,7 +150,6 @@ async function handleImage() {
 			const userExpression = await determineProofOfLife(
 				fullDesc[0]["expressions"]
 			);
-			console.log("expression=", userExpression);
 			if (expression[expCount] === userExpression) {
 				if (expCount === 0) {
 					setDetections({

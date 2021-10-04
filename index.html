@@ -10,11 +10,13 @@
 		<link rel="stylesheet" href="./styles.css" />
 	</head>
 	<body>
-		<div id="video-container">
-			<h3 id="title">Take Picture</h3>
-			<p id="message">Smile for the camera</p>
-			<div id="inner-container">
-				<video id="video" width="320" height="420" autoplay muted></video>
+		<div id="container">
+			<div id="video-container">
+				<div id="inner-container">
+					<h3 id="title">Take Picture</h3>
+					<p id="message">Smile for the camera</p>
+					<video id="video" width="320" height="420" autoplay muted></video>
+				</div>
 				<div id="emotions">
 					<span style="display: none" id="smile">
 						<strong>Smile</strong>
@@ -25,8 +27,8 @@
 						<img width="20" alt="Still detected" src="./images/ticked.gif" />
 					</span>
 				</div>
+				<canvas id="canvas"></canvas>
 			</div>
-			<canvas id="canvas"></canvas>
 
 			<img width="320" height="420" id="result" src="" style="display: none" />
 			<button id="button" style="display: none">Take Another</button>
