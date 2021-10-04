@@ -30,12 +30,14 @@ canvas {
 	display: flex;
 	flex-flow: column;
 	align-items: center;
+	justify-content: center;
 }
 
 #video-container {
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
+	justify-content: center;
 }
 
 #inner-container {
