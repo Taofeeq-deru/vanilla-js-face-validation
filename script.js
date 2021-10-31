@@ -65,6 +65,10 @@ function setDetections(obj) {
 	detections?.lifeProofDetected && stopVideo();
 }
 
+function isFaceDetectionModelLoaded() {
+	return !!faceapi.nets.tinyFaceDetector.params;
+}
+
 async function getFullFaceDescription2(blob, inputSize = 416) {
 	let scoreThreshold = 0.5;
 	const OPTION = new faceapi.TinyFaceDetectorOptions(inputSize, scoreThreshold);
@@ -74,6 +78,8 @@ async function getFullFaceDescription2(blob, inputSize = 416) {
 	let fullDesc = await faceapi
 		.detectAllFaces(img, OPTION)
 		.withFaceExpressions();
+
+	console.log("full desc", fullDesc);
 	return fullDesc;
 }
 
@@ -89,9 +95,19 @@ function determineProofOfLife({
 	//set neutral to be the face expression nad then replace it if other expressions come up with higher scores
 	let faceExpression = ["neutral", neutral];
 
+	console.table({
+		neutral,
+		happy,
+		sad,
+		angry,
+		fearful,
+		disgusted,
+		surprised,
+	});
+
 	if (happy > faceExpression[1]) faceExpression = ["happy", happy];
-	else if (sad > faceExpression[1]) faceExpression = ["sad", sad];
-	else if (angry > faceExpression[1]) faceExpression = ["angry", angry];
+	else if (sad > faceExpression[1]) faceExpression = ["neutral", sad];
+	else if (angry > faceExpression[1]) faceExpression = ["neutral", angry];
 	else if (fearful > faceExpression[1]) faceExpression = ["fearful", fearful];
 	else if (disgusted > faceExpression[1])
 		faceExpression = ["disgusted", disgusted];
@@ -102,14 +118,16 @@ function determineProofOfLife({
 	//if highest score is either angry or disgusted, select surprised as the final result because they are similar..
 	//const maxEmotionScore = faceExpression[1];
 	//if(faceExpression[0] === "angry") faceExpression = ["surprised", maxEmotionScore];
-	return faceExpression[1] >= 0.7 ? faceExpression[0] : null;
+	return faceExpression[1] >= 0.5 ? faceExpression[0] : null;
 }
 
-const delayCapture = (time) => {
-	var timer = setInterval(() => {
-		webcamCapture();
-		clearInterval(timer);
-	}, time);
+const delayCapture = () => {
+	// var timer = setInterval(() => {
+	// 	webcamCapture();
+	// 	clearInterval(timer);
+	// }, time);
+
+	setTimeout(() => webcamCapture());
 };
 
 function webcamCapture() {
@@ -126,7 +144,7 @@ function webcamCapture() {
 }
 
 async function handleImage() {
-	if (!imageD) webcamCapture();
+	if (!imageD || !isFaceDetectionModelLoaded()) webcamCapture();
 
 	await getFullFaceDescription2(imageD).then(async (fullDesc) => {
 		if (fullDesc.length > 1) {
@@ -149,7 +167,7 @@ async function handleImage() {
 					...detections,
 					message: "Move closer and stay still",
 				});
-			webcamCapture();
+			delayCapture();
 		} else if (fullDesc.length === 1) {
 			const userExpression = await determineProofOfLife(
 				fullDesc[0]["expressions"]
@@ -175,7 +193,7 @@ async function handleImage() {
 					}, 800);
 				}
 				expCount += 1;
-				delayCapture(1500);
+				delayCapture();
 			} else {
 				if (expCount === 0)
 					setDetections({ ...detections, message: "Now give a huge smile" });
@@ -192,7 +210,7 @@ async function handleImage() {
 }
 
 video.addEventListener("play", () => {
-	delayCapture(1000);
+	delayCapture();
 });
 
 button.addEventListener("click", () => {
